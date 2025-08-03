@@ -172,7 +172,18 @@
         import { getFirestore, collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc, query, Timestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : { apiKey: "...", authDomain: "...", projectId: "..." };
+        // *** NO EDITAR ESTA LÍNEA ***
+        const firebaseConfig = {
+  apiKey: "AIzaSyCjAcg0Y_jWkH3fps3uMVlHiDrD_Kcb-2g",
+  authDomain: "mis-finanzas-personales-dbbad.firebaseapp.com",
+  projectId: "mis-finanzas-personales-dbbad",
+  storageBucket: "mis-finanzas-personales-dbbad.firebasestorage.app",
+  messagingSenderId: "213510148351",
+  appId: "1:213510148351:web:e279d8d96a2cbea36c3cca",
+  measurementId: "G-QJM26K2FNK"
+};
+
+
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-debt-app-calendar';
 
         const app = initializeApp(firebaseConfig);
