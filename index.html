@@ -143,7 +143,7 @@
                         <div class="flex items-center space-x-4">
                              <h2 class="text-2xl font-bold text-white">Mis Gastos</h2>
                              <button id="download-csv-btn" title="Descargar como CSV" class="p-2 bg-gray-600 text-gray-200 rounded-full hover:bg-gray-500 transition-colors">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
                              </button>
                         </div>
                          <div class="bg-gray-800 p-3 rounded-xl shadow-lg border border-gray-700">
@@ -166,7 +166,7 @@
             <form id="edit-form" class="space-y-4"></form>
         </div>
     </div>
-    
+   
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc, query, Timestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
@@ -174,14 +174,15 @@
 
         // *** NO EDITAR ESTA LÍNEA ***
         const firebaseConfig = {
-  apiKey: "AIzaSyCjAcg0Y_jWkH3fps3uMVlHiDrD_Kcb-2g",
-  authDomain: "mis-finanzas-personales-dbbad.firebaseapp.com",
-  projectId: "mis-finanzas-personales-dbbad",
-  storageBucket: "mis-finanzas-personales-dbbad.firebasestorage.app",
-  messagingSenderId: "213510148351",
-  appId: "1:213510148351:web:e279d8d96a2cbea36c3cca",
-  measurementId: "G-QJM26K2FNK"
+ apiKey: "AIzaSyCjAcg0Y_jWkH3fps3uMVlHiDrD_Kcb-2g",
+ authDomain: "mis-finanzas-personales-dbbad.firebaseapp.com",
+ projectId: "mis-finanzas-personales-dbbad",
+ storageBucket: "mis-finanzas-personales-dbbad.firebasestorage.app",
+ messagingSenderId: "213510148351",
+ appId: "1:213510148351:web:e279d8d96a2cbea36c3cca",
+ measurementId: "G-QJM26K2FNK"
 };
+
 
 
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-debt-app-calendar';
@@ -235,7 +236,7 @@
                 alert('Por favor, ingresa una URL de Google Apps Script válida.');
             }
         });
-        
+       
         async function sendDataToGoogleSheet(data) {
             const url = localStorage.getItem('googleScriptUrl');
             if (!url) return; // No hay URL, no hacer nada
@@ -297,7 +298,7 @@
                 debtsCollectionRef = collection(db, `artifacts/${appId}/users/${userId}/debts`);
                 listenForDebts();
                 loadAndDisplayScriptUrl();
-                
+               
                 // Enable the form button
                 addExpenseBtn.disabled = false;
                 addExpenseBtn.textContent = 'Agregar Gasto';
@@ -321,7 +322,7 @@
             const description = document.getElementById('description').value;
             const category = document.getElementById('category').value;
             const dueDateStr = document.getElementById('due-date').value;
-            
+           
             const [year, month, day] = dueDateStr.split('-');
             const nextDueDate = Timestamp.fromDate(new Date(year, month - 1, day));
 
@@ -357,7 +358,7 @@
                 renderAll(allDebts);
             });
         }
-        
+       
         function renderAll(debts) {
             renderDebtList(debts);
             renderCalendar(currentDate.getFullYear(), currentDate.getMonth(), debts);
@@ -383,7 +384,7 @@
         function createDebtCard(debt) {
             const card = document.createElement('div');
             card.className = 'bg-gray-800 p-5 rounded-xl shadow-lg border border-gray-700';
-            
+           
             const nextDueDate = debt.nextDueDate.toDate();
             const today = new Date();
             today.setHours(0, 0, 0, 0);
@@ -437,7 +438,7 @@
             card.querySelector('.pay-btn').addEventListener('click', () => markAsPaid(debt));
             card.querySelector('.edit-btn').addEventListener('click', () => openEditModal(debt));
             card.querySelector('.delete-btn').addEventListener('click', () => deleteDebt(debt.id));
-            
+           
             return card;
         }
 
@@ -507,7 +508,7 @@
             e.preventDefault();
             const id = document.getElementById('edit-id').value;
             const debtRef = doc(db, debtsCollectionRef.path, id);
-            
+           
             const originalDebt = allDebts.find(d => d.id === id);
             const isLoan = originalDebt.paymentType === 'loan';
 
@@ -549,7 +550,7 @@
                  ctx.fillText("Agrega un gasto para ver el resumen.", ctx.canvas.width / 2, ctx.canvas.height / 2);
                  return;
             }
-            
+           
             Chart.defaults.color = '#d1d5db'; // gray-300
 
             categoryChart = new Chart(ctx, {
@@ -628,15 +629,15 @@
                 const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
                 const debtsOnThisDay = debts.filter(d => { const dueDate = d.nextDueDate.toDate(); return dueDate.getFullYear() === year && dueDate.getMonth() === month && dueDate.getDate() === day; });
                 const isDueDate = debtsOnThisDay.length > 0;
-                
+               
                 let dayClass = 'bg-gray-700/50 text-gray-300';
                 if (isHoliday) dayClass = 'bg-red-900/50 text-red-300';
                 else if (isWeekend) dayClass = 'bg-gray-700/20 text-gray-500';
                 if (isDueDate) dayClass = 'bg-orange-500 text-white font-bold';
-                
+               
                 let tooltipText = isHoliday ? holidayInfo.name : '';
                 if(isDueDate) { tooltipText += (tooltipText ? '\n' : '') + 'Vencimientos:\n' + debtsOnThisDay.map(d => `- ${d.description}`).join('\n'); }
-                
+               
                 html += `<div class="calendar-day h-10 flex items-center justify-center rounded-lg ${dayClass}">${day}${tooltipText ? `<span class="tooltip">${tooltipText}</span>` : ''}</div>`;
             }
             html += `</div>`;
@@ -645,7 +646,7 @@
             document.getElementById('prev-month').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() - 1); renderAll(allDebts); });
             document.getElementById('next-month').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() + 1); renderAll(allDebts); });
         }
-        
+       
         // --- CSV DOWNLOAD ---
         function downloadCSV() {
             if (allDebts.length === 0) {
